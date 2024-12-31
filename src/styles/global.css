@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light theme */
+    --primary: #ffffff;
+    --primary-light: #f8fafc;
+    --primary-dark: #f1f5f9;
+    
+    --secondary: #0891b2;
+    --secondary-rgb: 8, 145, 178;
+    --secondary-light: #0e7490;
+    --secondary-dark: #155e75;
+    
+    --tertiary: #8b5cf6;
+    --tertiary-rgb: 139, 92, 246;
+    --tertiary-light: #7c3aed;
+    --tertiary-dark: #6d28d9;
+    
+    --neutral: #64748b;
+    --neutral-light: #475569;
+    --neutral-dark: #334155;
+    
+    --slate: #0f172a;
+  }
+
+  :root[class~="dark"] {
+    /* Dark theme */
+    --primary: #0A192F;
+    --primary-light: #112240;
+    --primary-dark: #0a1930;
+    
+    --secondary: #64FFDA;
+    --secondary-rgb: 100, 255, 218;
+    --secondary-light: #7affde;
+    --secondary-dark: #5ae6c4;
+    
+    --tertiary: #845EC2;
+    --tertiary-rgb: 132, 94, 194;
+    --tertiary-light: #9d77d1;
+    --tertiary-dark: #6b45b2;
+    
+    --neutral: #8892B0;
+    --neutral-light: #a8b2d1;
+    --neutral-dark: #697290;
+    
+    --slate: #E6F1FF;
+  }
+
+  body {
+    @apply bg-primary text-neutral transition-colors duration-200 antialiased font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight text-slate;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply font-mono text-neutral hover:text-secondary transition-colors tracking-wide;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 relative tracking-wide font-display;
+  }
+
+  .btn-primary {
+    @apply bg-secondary text-primary hover:bg-secondary-dark;
+    background: linear-gradient(90deg, var(--secondary) 0%, var(--secondary-light) 100%);
+  }
+
+  .btn-outline {
+    @apply border-2 border-neutral hover:border-secondary text-neutral hover:text-secondary;
+  }
+
+  /* Tape Effect */
+  .tape {
+    position: absolute;
+    width: 40px;
+    height: 100px;
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+    background: linear-gradient(
+      175deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.4) 15%,
+      rgba(255, 255, 255, 0.3) 30%,
+      rgba(255, 255, 255, 0.35) 45%,
+      rgba(255, 255, 255, 0.25) 85%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 70% 70% at center,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(0, 0, 0, 0.3) 90%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      ellipse 70% 70% at center,
+      rgba(0, 0, 0, 1) 50%,
+      rgba(0, 0, 0, 0.3) 90%,
+      transparent 100%
+    );
+    backdrop-filter: blur(5px);
+    border-radius: 2px;
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    z-index: 10;
+  }
+
+  .tape::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.25) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      transparent 55%
+    );
+  }
+
+  .tape::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      175deg,
+      transparent,
+      transparent 5px,
+      rgba(255, 255, 255, 0.2) 5px,
+      rgba(255, 255, 255, 0.15) 10px,
+      transparent 10px
+    );
+    border-radius: inherit;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+
+  .dark .tape {
+    background: linear-gradient(
+      175deg,
+      rgba(255, 255, 255, 0.15),
+      rgba(255, 255, 255, 0.3) 15%,
+      rgba(255, 255, 255, 0.2) 30%,
+      rgba(255, 255, 255, 0.25) 45%,
+      rgba(255, 255, 255, 0.15) 85%
+    );
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.15),
+      inset 0 1px 2px rgba(255, 255, 255, 0.1);
+  }
+
+  /* Graph Paper Grid Effect */
+  .graph-paper {
+    background-image:
+      /* Major lines */
+      linear-gradient(to right, var(--neutral-light) 1.5px, transparent 1.5px),
+      linear-gradient(to bottom, var(--neutral-light) 1.5px, transparent 1.5px),
+      /* Minor lines */
+      linear-gradient(to right, var(--neutral-light) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--neutral-light) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: top center;
+    opacity: 0.25;
+  }
+
+  .graph-paper-small {
+    background-image:
+      /* Major lines */
+      linear-gradient(to right, var(--neutral-light) 1.5px, transparent 1.5px),
+      linear-gradient(to bottom, var(--neutral-light) 1.5px, transparent 1.5px),
+      /* Minor lines */
+      linear-gradient(to right, var(--neutral-light) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--neutral-light) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: top center;
+  }
+
+  /* Theme-specific grid variations */
+  .dark .graph-paper,
+  .dark .graph-paper-small {
+    mix-blend-mode: soft-light;
+  }
+
+  .light .graph-paper,
+  .light .graph-paper-small {
+    mix-blend-mode: multiply;
+  }
+
+  /* Graph Paper Element with Shadow */
+  .graph-paper-element {
+    box-shadow: 
+      0 4px 6px -2px rgba(0, 0, 0, 0.05),
+      0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  /* Typography */
+  .heading-1 {
+    @apply text-5xl md:text-7xl font-bold font-display;
+  }
+
+  .heading-2 {
+    @apply text-4xl md:text-5xl font-bold font-display;
+  }
+
+  .heading-3 {
+    @apply text-3xl md:text-4xl font-bold font-display;
+  }
+
+  .body-large {
+    @apply text-xl font-sans;
+  }
+
+  .body-base {
+    @apply text-base font-sans;
+  }
+
+  .code {
+    @apply font-mono text-secondary;
+  }
+
+  /* Scrollbar & Other Styles */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--primary-light);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--neutral);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
